@@ -2023,31 +2023,49 @@
                 }
             });
         }
+// ==================== LOGIN ====================
+var profilePicInput = document.getElementById('profilePicInput');
 
-        // ==================== LOGIN ====================
-        document.getElementById('profilePicInput').addEventListener('change', async function(e) {
-            const file = e.target.files[0];
-            if (!file) return;
-            const url = await processImage(file, 120);
-            if (url) {
-                document.getElementById('avatarPreview').innerHTML = '<img src="' + url + '" alt="avatar">';
+if (profilePicInput) {
+    profilePicInput.addEventListener('change', async function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const url = await processImage(file, 120);
+
+        if (url) {
+            var preview = document.getElementById('avatarPreview');
+            if (preview) {
+                preview.innerHTML = '<img src="' + url + '" alt="avatar">';
             }
-        });
+        }
+    });
+} // ✅ aquí termina correctamente
 
-        document.getElementById('loginBtn').addEventListener('click', async function() {
-            const nickname = document.getElementById('nicknameInput').value.trim();
-            if (!nickname) {
-                document.getElementById('nicknameInput').style.borderColor = 'var(--danger)';
-                document.getElementById('nicknameInput').focus();
-                setTimeout(function() {
-                    document.getElementById('nicknameInput').style.borderColor = '';
-                }, 2000);
-                return;
-            }
+// LOGIN BUTTON
+var loginBtn = document.getElementById('loginBtn');
 
-            const btn = document.getElementById('loginBtn');
-            setBtnLoading(btn, true);
+if (loginBtn) {
+    loginBtn.addEventListener('click', async function() {
+        const nickname = document.getElementById('nicknameInput').value.trim();
 
+        if (!nickname) {
+            document.getElementById('nicknameInput').style.borderColor = 'var(--danger)';
+            document.getElementById('nicknameInput').focus();
+
+            setTimeout(function() {
+                document.getElementById('nicknameInput').style.borderColor = '';
+            }, 2000);
+
+            return;
+        }
+
+        const btn = document.getElementById('loginBtn');
+        setBtnLoading(btn, true);
+
+        // resto de tu lógica...
+    });
+}
             const avatarImg = document.querySelector('#avatarPreview img');
             const avatar = avatarImg ? avatarImg.src : null;
 
