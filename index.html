@@ -31,15 +31,26 @@
             --warning: #fdcb6e;
             --border: rgba(108, 92, 231, 0.2);
         }
-
+/*liea que acabe de cambiar*/
         body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
+               font-family: 'Poppins', sans-serif;
+               background: url('https://i.pinimg.com/originals/9b/6e/3f/9b6e3f7c0c5c9b0b3c0d5c1e8c1f0d2a.jpg') no-repeat center center fixed;
+               background-size: cover;
+               color: #e0e0e0;
+               min-height: 100vh;
+               overflow-x: hidden;
+          }
+       body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+               width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.75);
+                 z-index: -1;
         }
-
+/*fin de la liea nueva*/
         body::before {
             content: '';
             position: fixed;
