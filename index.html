@@ -6,6 +6,7 @@
     <title>Vanishing - Grupos de Amigos</title>
     <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.14.0/firebase-database-compat.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
@@ -1728,19 +1729,19 @@
             <button class="info-panel-close" id="infoPanelClose">←</button>
             <h3>Info del grupo</h3>
         </div>
-        <div class="info-panel-body">
-            <div class="info-panel-avatar" id="infoPanelAvatar"></div>
-            <div class="info-panel-name" id="infoPanelName"></div>
-            <div class="info-panel-code" id="infoPanelCode"></div>
+     <div class="info-panel-body">
+    <div class="info-panel-avatar" id="infoPanelAvatar"></div>
+    <div class="info-panel-name" id="infoPanelName"></div>
+    <div class="info-panel-code" id="infoPanelCode"></div>
 
-            <div class="info-panel-section-title" id="infoPanelMemberTitle">Miembros</div>
-            <div id="infoPanelMembers"></div>
-        </div>
-        <div class="info-panel-actions">
-            <button class="btn btn-secondary btn-small" id="infoPanelEditBtn" style="width:100%;">✏️ Editar grupo</button>
-            <button class="btn btn-danger btn-small" id="infoPanelLeaveBtn" style="width:100%;">🚪 Salir del grupo</button>
-        </div>
+    <!-- QR -->
+    <div class="qr-container">
+        <canvas id="qrCanvas"></canvas>
     </div>
+
+    <div class="info-panel-section-title" id="infoPanelMemberTitle">Miembros</div>
+    <div id="infoPanelMembers"></div>
+</div>
 
     <!-- CREATE GROUP MODAL -->
     <div class="modal-overlay" id="createModal">
@@ -2637,6 +2638,18 @@
                     '<span class="code-value">' + group.code + '</span>' +
                     '<span class="copy-icon">📋</span>' +
                 '</div>';
+
+            setTimeout(function () {
+    var canvas = document.getElementById('qrCanvas');
+
+    if (canvas && group.code) {
+        QRCode.toCanvas(canvas,'https://tuapp.com/join?code=' + group.code, {
+            width: 180
+        }, function (error) {
+            if (error) console.error(error);
+        });
+    }
+}, 100);
 
             // Members
             var members = group.members ? Object.entries(group.members) : [];
